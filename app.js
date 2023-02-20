@@ -1,10 +1,6 @@
 
 const fs= require('fs')
 
-// fs.writeFile('outputfile.txt', data, (err) => {
-//   if (err) throw err;
-//   console.log('The file has been saved!');
-// });
 
 const genders = ['M', 'F']
 const maleNames = ['John', 'Paul', 'Kerry', 'Bob', 'Tom', 'Bruce', 'Steve']
@@ -37,9 +33,21 @@ function randChoice(arr) {
       const renderName = randChoice(femaleNames)
       obj.name = renderName;
   }
-  obj.lastName =Math.random(lastNames);
+  obj.lastName =lastNames[Math.floor(Math.random()*lastNames.length)];
+  obj.age =(Math.round(Math.random()*(78-18)+18));
   people.push(obj)
- 
-
+  
   }
- console.log('rendername', people)
+ 
+ let peopleJson = JSON.parse(JSON.stringify(people))
+ console.log('array after json', peopleJson)
+
+ const jsonString = JSON.stringify(peopleJson)
+ fs.writeFile('./people.json', jsonString, err => {
+  if (err) {
+    console.log('Error writing file', err)
+} else {
+    console.log('Successfully wrote file')
+}
+
+});
